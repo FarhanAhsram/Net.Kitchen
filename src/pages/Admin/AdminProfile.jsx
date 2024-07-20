@@ -82,13 +82,13 @@ export default function AdminProfile() {
   return (
     <>
       <AdminLayout>
-        <div className="border shadow-lg rounded-md p-4">
+        <div className="bg-white border shadow-lg rounded-md p-4">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4 flex justify-center items-center">
               <img
                 src={previewImage}
                 alt={user.name}
-                className="rounded-full"
+                className="rounded-full border-4 border-[#77E4C8]"
               />
             </div>
             <div className="col-span-12 lg:col-span-8">
@@ -150,7 +150,9 @@ export default function AdminProfile() {
                     />
                   </div>
                   <div className="flex justify-end">
-                    <Button type="submit">Simpan</Button>
+                    <Button type="submit" variant="primary">
+                      Simpan
+                    </Button>
                   </div>
                 </form>
               </div>

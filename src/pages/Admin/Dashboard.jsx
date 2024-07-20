@@ -36,7 +36,7 @@ export default function Dashboard() {
     <>
       <AdminLayout>
         <div className="grid grid-cols-2 items-center gap-4 max-md:grid-cols-1">
-          <div className="border rounded-lg bg-gray-200 h-[400px] p-10">
+          <div className="border rounded-lg bg-[#77E4C8] h-[400px] p-10">
             <div className="flex justify-center items-center mb-20">
               <h1 className="text-6xl font-semibold">Total Users</h1>
             </div>
@@ -44,7 +44,7 @@ export default function Dashboard() {
               <h1 className="text-9xl">{listUsers.length}</h1>
             </div>
           </div>
-          <div className="border rounded-lg bg-gray-200 h-[400px] p-10">
+          <div className="border rounded-lg bg-[#77E4C8] h-[400px] p-10">
             <div className="flex justify-center items-center mb-20">
               <h1 className="text-6xl font-semibold">Total Foods</h1>
             </div>

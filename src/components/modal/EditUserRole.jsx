@@ -94,9 +94,11 @@ export default function EditUserRole({
             </Select>
             <div className="flex justify-end gap-6">
               <Button variant="ghost" onClick={handleModalEditRole}>
-                Batal
+                Cancel
               </Button>
-              <Button type="submit">Simpan</Button>
+              <Button type="submit" variant="primary">
+                Save
+              </Button>
             </div>
           </form>
         </div>

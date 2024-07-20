@@ -25,9 +25,10 @@ export default function AddFood({ handleModalAdd, getFoods }) {
   };
 
   const handleImageFood = (e) => {
+    const file = e.target.files[0];
     setForm({
       ...form,
-      imageUrl: e.target.files[0],
+      imageUrl: file,
     });
   };
 
@@ -145,9 +146,11 @@ export default function AddFood({ handleModalAdd, getFoods }) {
             </div>
             <div className="flex justify-end gap-6">
               <Button variant="ghost" onClick={handleModalAdd}>
-                Batal
+                Cancel
               </Button>
-              <Button type="submit">Simpan</Button>
+              <Button type="submit" variant="primary">
+                Save
+              </Button>
             </div>
           </form>
         </div>

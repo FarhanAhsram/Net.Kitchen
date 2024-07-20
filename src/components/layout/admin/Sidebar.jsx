@@ -29,7 +29,7 @@ const menu = [
 
 export function Sidebar() {
   return (
-    <nav className="grid items-start gap-2 px-4">
+    <nav className="grid items-start gap-2 py-8 px-6">
       {menu.map((item, index) => {
         const Icon = item.icon;
 
@@ -38,11 +38,11 @@ export function Sidebar() {
             key={index}
             to={item.url}
             className={cn(
-              "flex items-center text-lg font-medium rounded-lg gap-3 px-3 py-4 text-muted-foreground transition-all hover:text-primary",
-              location.pathname === item.url ? "bg-gray-400 text-primary" : ""
+              "flex items-center text-xl font-medium rounded-lg gap-3 px-3 py-4 text-muted-foreground transition-all hover:text-primary hover:bg-[#77e4c936]",
+              location.pathname === item.url ? "bg-[#77E4C8] text-primary" : ""
             )}
           >
-            <Icon className="h-5 w-5" />
+            <Icon className="h-7 w-7" />
             {item.title}
           </Link>
         );
@@ -61,8 +61,8 @@ export function SidebarResponsive() {
             key={index}
             to={item.url}
             className={cn(
-              "flex items-center text-lg font-medium rounded-lg gap-3 px-3 py-4 text-muted-foreground transition-all hover:text-primary",
-              location.pathname === item.url ? "text-primary bg-gray-200" : ""
+              "flex items-center text-lg font-medium rounded-lg gap-3 px-3 py-4 text-muted-foreground transition-all hover:text-primary hover:bg-[#77e4c936]",
+              location.pathname === item.url ? "text-primary bg-[#77E4C8]" : ""
             )}
           >
             <Icon className="h-5 w-5" />

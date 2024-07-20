@@ -1,6 +1,3 @@
-import AdminLayout from "../../components/layout/admin/Layout";
-import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,32 +9,38 @@ import {
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import AdminLayout from "../../components/layout/admin/Layout";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import AddFood from "../../components/modal/AddFood";
 import EditFood from "../../components/modal/EditFood";
 import { fetchGetFood } from "@/api/Food/fetchGetFood";
 import { fetchDelFood } from "@/api/Food/fetchDelFood";
-import { Pencil, Trash2 } from "lucide-react";
 
 export default function ManageFoods() {
   const [listFoods, setListFoods] = useState([]);
+  const [filteredFoods, setFilteredFoods] = useState([]);
   const [editedFood, setEditedFood] = useState({
     name: "",
     description: "",
     ingredients: [],
     imageUrl: null,
   });
+  const [searchFood, setSearchFood] = useState("");
+  const [isModalAddOpen, setIsModalAddOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  const [isModalAddOpen, setIsModalAddOpen] = useState(false);
-  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
 
   const handleModalAdd = () => {
     setIsModalAddOpen(!isModalAddOpen);
@@ -87,6 +90,7 @@ export default function ManageFoods() {
     try {
       const foodsData = await fetchGetFood();
       setListFoods(foodsData.data);
+      setFilteredFoods(foodsData.data);
       // console.log(foodsData.data);
     } catch (error) {
       console.log(error);
@@ -97,27 +101,119 @@ export default function ManageFoods() {
     getFoods();
   }, []);
 
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchFood(searchValue);
+    setFilteredFoods(
+      listFoods.filter((food) => food.name.toLowerCase().includes(searchValue))
+    );
+    setCurrentPage(1);
+  };
+
   const indexOfLastFood = currentPage * itemsPerPage;
   const indexOfFirstFood = indexOfLastFood - itemsPerPage;
-  const currentFoods = listFoods.slice(indexOfFirstFood, indexOfLastFood);
+  const currentFoods = filteredFoods.slice(indexOfFirstFood, indexOfLastFood);
 
-  const totalPages = Math.ceil(listFoods.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredFoods.length / itemsPerPage);
+
+  const renderPaginationItems = () => {
+    const paginationItems = [];
+
+    if (totalPages <= 7) {
+      for (let page = 1; page <= totalPages; page++) {
+        paginationItems.push(
+          <PaginationItem key={page}>
+            <PaginationLink
+              href="#"
+              isActive={page === currentPage}
+              onClick={() => setCurrentPage(page)}
+              className={page === currentPage ? "active" : ""}
+            >
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+    } else {
+      paginationItems.push(
+        <PaginationItem key={1}>
+          <PaginationLink
+            href="#"
+            isActive={currentPage === 1}
+            onClick={() => setCurrentPage(1)}
+          >
+            1
+          </PaginationLink>
+        </PaginationItem>
+      );
+
+      if (currentPage > 4) {
+        paginationItems.push(<PaginationEllipsis key="start-ellipsis" />);
+      }
+
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      for (let page = startPage; page <= endPage; page++) {
+        paginationItems.push(
+          <PaginationItem key={page}>
+            <PaginationLink
+              href="#"
+              isActive={page === currentPage}
+              onClick={() => setCurrentPage(page)}
+              className={page === currentPage ? "active" : ""}
+            >
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+
+      if (currentPage < totalPages - 3) {
+        paginationItems.push(<PaginationEllipsis key="end-ellipsis" />);
+      }
+
+      paginationItems.push(
+        <PaginationItem key={totalPages}>
+          <PaginationLink
+            href="#"
+            isActive={currentPage === totalPages}
+            onClick={() => setCurrentPage(totalPages)}
+          >
+            {totalPages}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return paginationItems;
+  };
 
   return (
     <div>
       <AdminLayout>
-        <div className="flex justify-between mb-4">
-          <h1 className="text-2xl font-medium">Foods</h1>
-          <Button onClick={handleModalAdd}>Add Food</Button>
+        <div className="flex gap-4 mb-4">
+          <Input
+            placeholder="Search food by entering its name..."
+            className="border-2 border-[#77E4C8]"
+            value={searchFood}
+            onChange={handleSearch}
+          />
+          <Button variant="primary" onClick={handleModalAdd}>
+            Add Food
+          </Button>
         </div>
         <Table>
           <TableHeader className="bg-gray-100">
             <TableRow>
-              <TableHead>No.</TableHead>
-              <TableHead>Food Image</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead colSpan={3} className="text-center">
+              <TableHead className="rounded-tl-md text-black">No.</TableHead>
+              <TableHead className="text-black">Food Image</TableHead>
+              <TableHead className="text-black">Name</TableHead>
+              <TableHead className="text-black">Description</TableHead>
+              <TableHead
+                colSpan={3}
+                className="text-center rounded-tr-md text-black"
+              >
                 Action
               </TableHead>
             </TableRow>
@@ -130,7 +226,7 @@ export default function ManageFoods() {
                   <img
                     src={data.imageUrl}
                     alt={data.name}
-                    className="w-40 rounded-full"
+                    className="w-28 rounded-full aspect-square"
                   />
                 </TableCell>
                 <TableCell>
@@ -146,14 +242,17 @@ export default function ManageFoods() {
                 </TableCell>
                 <TableCell className="">
                   <Pencil
-                    className="h-5 w-5 mx-auto"
+                    size={24}
+                    className="mx-auto"
                     cursor={"pointer"}
                     onClick={() => handleModalEdit(data)}
                   />
                 </TableCell>
                 <TableCell className="">
                   <Trash2
-                    className="h-5 w-5 mx-auto"
+                    size={24}
+                    className="mx-auto"
+                    cursor={"pointer"}
                     onClick={() => handleDeleteFood(data.id)}
                   />
                 </TableCell>
@@ -172,18 +271,7 @@ export default function ManageFoods() {
                 disabled={currentPage === 1}
               />
             </PaginationItem>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <PaginationItem key={page}>
-                <PaginationLink
-                  href="#"
-                  isActive={page === currentPage}
-                  onClick={() => setCurrentPage(page)}
-                  className={page === currentPage ? "active" : "active"}
-                >
-                  {page}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {renderPaginationItems()}
             <PaginationItem>
               <PaginationNext
                 href="#"
@@ -197,11 +285,10 @@ export default function ManageFoods() {
         </Pagination>
       </AdminLayout>
 
-      {/* Modal Add Food */}
       {isModalAddOpen && (
         <AddFood handleModalAdd={handleModalAdd} getFoods={getFoods} />
       )}
-      {/* Modal Edit Food */}
+
       {isModalEditOpen && (
         <EditFood
           handleModalEdit={handleModalEdit}

@@ -115,44 +115,46 @@ export default function EditFood({
                 onChange={handleEditFoodChange}
               />
             </div>
-            <div className="mb-4">
-              <Label>
-                Description <span className="text-red-500">*</span>
-              </Label>
-              <Textarea
-                type="text"
-                id="description"
-                name="description"
-                className="mt-2"
-                placeholder="Description"
-                value={editedFood.description}
-                onChange={handleEditFoodChange}
-              />
-            </div>
-            <div className="mb-4">
-              <Label>
-                Ingredients <span className="text-red-500">*</span>
-              </Label>
-              <Textarea
-                type="text"
-                id="ingredients"
-                name="ingredients"
-                className="mt-2"
-                placeholder="Ingredients"
-                value={
-                  Array.isArray(editedFood.ingredients)
-                    ? editedFood.ingredients.join(", ")
-                    : editedFood.ingredients
-                }
-                onChange={handleEditFoodChange}
-              />
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <Label>
+                  Description <span className="text-red-500">*</span>
+                </Label>
+                <Textarea
+                  type="text"
+                  id="description"
+                  name="description"
+                  className="mt-2"
+                  placeholder="Description"
+                  value={editedFood.description}
+                  onChange={handleEditFoodChange}
+                />
+              </div>
+              <div>
+                <Label>
+                  Ingredients <span className="text-red-500">*</span>
+                </Label>
+                <Textarea
+                  type="text"
+                  id="ingredients"
+                  name="ingredients"
+                  className="mt-2"
+                  placeholder="Ingredients"
+                  value={
+                    Array.isArray(editedFood.ingredients)
+                      ? editedFood.ingredients.join(", ")
+                      : editedFood.ingredients
+                  }
+                  onChange={handleEditFoodChange}
+                />
+              </div>
             </div>
             <div className="mb-4">
               <Label>
                 Image <span className="text-red-500">*</span>
               </Label>
               <img
-                className="rounded-lg mx-auto w-24 h-24"
+                className="rounded-md aspect-square w-36 mx-auto"
                 src={editedFood.imageUrl}
                 alt={editedFood.name}
               />
@@ -167,9 +169,11 @@ export default function EditFood({
             </div>
             <div className="flex justify-end gap-6">
               <Button variant="ghost" onClick={handleModalEdit}>
-                Batal
+                Cancel
               </Button>
-              <Button type="submit">Simpan</Button>
+              <Button type="submit" variant="primary">
+                Save
+              </Button>
             </div>
           </form>
         </div>

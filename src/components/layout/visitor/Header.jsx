@@ -81,7 +81,7 @@ export default function Header() {
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Food Catalog</span>
-              <h1 className="font-bold text-3xl font-cursive md:text-4xl">
+              <h1 className="font-semibold text-3xl font-cursive md:text-4xl">
                 Net.Kitchen
               </h1>
             </a>
@@ -102,9 +102,9 @@ export default function Header() {
                 key={index}
                 to={item.url[0]}
                 className={cn(
-                  "text-lg font-semibold p-2 hover:border-b-4 hover:border-b-slate-600",
+                  "text-lg font-semibold p-2 hover:border-b-4 hover:border-b-[#248891D7]",
                   item.url.includes(location.pathname)
-                    ? "text-primary border-b-4 border-b-slate-950"
+                    ? "text-primary border-b-4 border-b-[#77E4C8]"
                     : ""
                 )}
               >
@@ -122,7 +122,7 @@ export default function Header() {
                   <img
                     alt=""
                     src={user.profilePictureUrl}
-                    className="h-10 w-10 rounded-full"
+                    className="h-14 w-14 rounded-full border-2 border-[#77E4C8]"
                   />
                 </MenuButton>
               </div>
@@ -183,7 +183,7 @@ export default function Header() {
                       className={cn(
                         "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100",
                         item.url.includes(location.pathname)
-                          ? "text-primary bg-gray-200"
+                          ? "text-primary bg-[#77E4C8]"
                           : ""
                       )}
                     >

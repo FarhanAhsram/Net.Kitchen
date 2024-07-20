@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HandHeart, Star, Utensils } from "lucide-react";
+import { Heart, Star, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisitorLayout from "../../components/layout/visitor/Layout";
 import {
@@ -33,67 +33,62 @@ export default function Home() {
     <>
       <VisitorLayout>
         <div className="min-h-screen">
-          <div className="grid md:grid-cols-12 gap-2 bg-[#77E4C8] px-10 h-[600px]">
-            <div className="col-span-7 flex flex-col gap-6 m-auto p-4">
-              <h1 className="text-6xl font-bold text-center md:text-left">
-                Lorem ipsum dolor sit amet.
+          <div className="grid md:grid-cols-12 gap-2 bg-[#77E4C8] p-10 h-fit lg:py-0">
+            <div className="col-span-7 flex flex-col gap-10 m-auto p-4">
+              <h1 className="text-6xl text-center font-cursive md:text-left">
+                Discover Delicious Delights
               </h1>
               <p className="text-center text-2xl md:text-left">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
-                quia dolorem et est quaerat magnam eius ea debitis quibusdam
-                unde, similique quo mollitia distinctio obcaecati ab eum
-                voluptate iste veniam! similique quo mollitia distinctio
-                obcaecati ab eum voluptate iste veniam!
+                Explore our wide variety of delicious foods, each crafted with
+                care and passion. Whether you&apos;re in the mood for something
+                savory or sweet, our catalog has something for everyone. Dive in
+                and find your new favorite dish today!
               </p>
               <div className="mx-auto md:mx-0">
                 <Button className="text-xl p-8">Get Started</Button>
               </div>
             </div>
             <div className="hidden lg:block col-span-5 m-auto">
-              <img
-                src="/images/landing-1.png"
-                alt="heroIcon"
-                className="w-5/6 m-auto"
-              />
+              <img src="/images/Hero1.webp" alt="heroIcon" className="m-auto" />
             </div>
           </div>
 
-          <div className="grid p-6 bg-[#248891D7] text-white h-[900px] md:h-[500px]">
+          <div className="grid p-8 bg-[#248891D7] text-white h-fit lg:py-24 lg:px-8">
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center p-4 gap-4 m-auto">
+              <div className="flex flex-col items-center p-4 gap-8 m-auto">
                 <Utensils size={108} />
-                <p className="text-center text-lg">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Voluptate autem neque optio, numquam minima at pariatur!
-                  Quibusdam ducimus voluptate eos!
+                <p className="text-center text-xl">
+                  Our culinary experts curate only the finest dishes, ensuring
+                  that each bite is an experience to remember. Discover the joy
+                  of eating well with our extensive selection.
                 </p>
               </div>
-              <div className="flex flex-col items-center p-4 gap-4 m-auto">
-                <HandHeart size={108} />
-                <p className="text-center text-lg">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Voluptate autem neque optio, numquam minima at pariatur!
-                  Quibusdam ducimus voluptate eos!
+              <div className="flex flex-col items-center p-4 gap-8 m-auto">
+                <Heart size={108} fill="white" />
+                <p className="text-center text-xl">
+                  Mark your favorite dishes with a heart and easily find them
+                  all in one place. Our system lets you keep track of the meals
+                  you love, so you can enjoy them again and again.
                 </p>
               </div>
-              <div className="flex flex-col items-center p-4 gap-4 m-auto">
-                <Star size={108} />
-                <p className="text-center text-lg">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Voluptate autem neque optio, numquam minima at pariatur!
-                  Quibusdam ducimus voluptate eos!
+              <div className="flex flex-col items-center p-4 gap-8 m-auto">
+                <Star size={108} fill="white" />
+                <p className="text-center text-xl">
+                  Rate and review your favorite dishes, and see what others have
+                  to say. Our platform lets you share your thoughts and browse
+                  through the history of reviews from fellow food lovers.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-[#166686] text-white px-16 pt-12 pb-20">
+          <div className="bg-[#166686] text-white px-16 pt-12 pb-20 h-fit">
             <div className="flex flex-col text-center gap-8 pb-12">
-              <h1 className="text-5xl font-bold">Foods</h1>
+              <h1 className="text-5xl font-bold">Explore Our Menu</h1>
               <p className="text-2xl">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Laudantium cupiditate nisi quis quisquam cum illo aliquam
-                voluptates eveniet blanditiis nam!
+                Dive into our catalog and discover a world of flavors. From
+                appetizers to desserts, we have everything you need to satisfy
+                your cravings. Bon appétit!
               </p>
             </div>
             <Carousel className="w-full">
@@ -101,7 +96,7 @@ export default function Home() {
                 {listFoods.map((item, index) => (
                   <CarouselItem
                     key={index}
-                    className="md:basis-1/2 lg:basis-1/4"
+                    className="md:basis-1/2 lg:basis-1/5"
                   >
                     <Link to={`/detailfood/${item.id}`}>
                       <Card className="flex justify-center items-center">
