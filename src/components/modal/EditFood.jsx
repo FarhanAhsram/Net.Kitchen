@@ -115,57 +115,57 @@ export default function EditFood({
                 onChange={handleEditFoodChange}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <Label>
-                  Description <span className="text-red-500">*</span>
-                </Label>
-                <Textarea
-                  type="text"
-                  id="description"
-                  name="description"
-                  className="mt-2"
-                  placeholder="Description"
-                  value={editedFood.description}
-                  onChange={handleEditFoodChange}
-                />
-              </div>
-              <div>
-                <Label>
-                  Ingredients <span className="text-red-500">*</span>
-                </Label>
-                <Textarea
-                  type="text"
-                  id="ingredients"
-                  name="ingredients"
-                  className="mt-2"
-                  placeholder="Ingredients"
-                  value={
-                    Array.isArray(editedFood.ingredients)
-                      ? editedFood.ingredients.join(", ")
-                      : editedFood.ingredients
-                  }
-                  onChange={handleEditFoodChange}
-                />
-              </div>
+            <div className="mb-4">
+              <Label>
+                Description <span className="text-red-500">*</span>
+              </Label>
+              <Textarea
+                type="text"
+                id="description"
+                name="description"
+                className="mt-2"
+                placeholder="Description"
+                value={editedFood.description}
+                onChange={handleEditFoodChange}
+              />
+            </div>
+            <div className="mb-4">
+              <Label>
+                Ingredients <span className="text-red-500">*</span>
+              </Label>
+              <Textarea
+                type="text"
+                id="ingredients"
+                name="ingredients"
+                className="mt-2"
+                placeholder="Ingredients"
+                value={
+                  Array.isArray(editedFood.ingredients)
+                    ? editedFood.ingredients.join(", ")
+                    : editedFood.ingredients
+                }
+                onChange={handleEditFoodChange}
+              />
             </div>
             <div className="mb-4">
               <Label>
                 Image <span className="text-red-500">*</span>
               </Label>
-              <img
-                className="rounded-md aspect-square w-36 mx-auto"
-                src={editedFood.imageUrl}
-                alt={editedFood.name}
-              />
-              <Input
-                type="file"
-                id="imageUrl"
-                name="imageUrl"
-                className="mt-2"
-                placeholder="Image"
-                onChange={handleImageFood}
-              />
+              <div className="grid grid-cols-8 gap-2 items-center mt-2">
+                <img
+                  className="rounded-md aspect-square w-36 mx-auto col-span-2"
+                  src={editedFood.imageUrl}
+                  alt={editedFood.name}
+                />
+                <Input
+                  type="file"
+                  id="imageUrl"
+                  name="imageUrl"
+                  className="mt-2 col-span-6"
+                  placeholder="Image"
+                  onChange={handleImageFood}
+                />
+              </div>
             </div>
             <div className="flex justify-end gap-6">
               <Button variant="ghost" onClick={handleModalEdit}>

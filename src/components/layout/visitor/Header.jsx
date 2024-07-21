@@ -32,12 +32,13 @@ const listNavbar = [
 ];
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const [user, setUser] = useState({});
-
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [user, setUser] = useState({});
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const role = localStorage.getItem("role");
 
   const getUserLogin = async () => {
     try {
@@ -130,6 +131,16 @@ export default function Header() {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
+                {role === "admin" && (
+                  <MenuItem>
+                    <a
+                      href="/manageusers"
+                      className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
+                    >
+                      Go To Dashboard
+                    </a>
+                  </MenuItem>
+                )}
                 <MenuItem>
                   <a
                     href="/userprofile"

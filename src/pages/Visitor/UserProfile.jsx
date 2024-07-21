@@ -82,7 +82,7 @@ export default function UserProfile() {
   return (
     <>
       <VisitorLayout>
-        <div className="container p-4">
+        <div className="container p-4 mt-8">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4 flex justify-center items-center">
               <img

@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export default function AddRating({ handleModalAddRating, id }) {
+export default function AddRating({ handleModalAddRating, id, renderStars }) {
   const [rating, setRating] = useState([]);
   const [form, setForm] = useState({
     rating: "",
@@ -39,6 +39,7 @@ export default function AddRating({ handleModalAddRating, id }) {
       });
       handleModalAddRating();
       getRating();
+      renderStars();
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +122,9 @@ export default function AddRating({ handleModalAddRating, id }) {
               <Button variant="ghost" onClick={handleModalAddRating}>
                 Batal
               </Button>
-              <Button type="submit">Simpan</Button>
+              <Button type="submit" variant="primary">
+                Simpan
+              </Button>
             </div>
           </form>
         </div>

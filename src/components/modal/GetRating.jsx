@@ -48,7 +48,7 @@ export default function GetRating({ handleModalGetRating, id }) {
 
         <div className="">
           {rating.map((getRate) => (
-            <div key={getRate.id} className="rounded-xl bg-white p-2 mt-4">
+            <div key={getRate.id} className="rounded-xl bg-white pb-4">
               <h1 className="font-bold text-lg">{getRate.user.name}</h1>
               <h1>Rating: {getRate.rating}</h1>
               <h1>Review: {getRate.review}</h1>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Heart, Star, Utensils } from "lucide-react";
+import { Star, ThumbsUp, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisitorLayout from "../../components/layout/visitor/Layout";
 import {
@@ -12,16 +12,21 @@ import {
 import { Card } from "@/components/ui/card";
 import { fetchGetFood } from "@/api/Food/fetchGetFood";
 import { Link } from "react-router-dom";
+import Loading from "@/components/Loading";
 
 export default function Home() {
   const [listFoods, setListFoods] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getFoods = async () => {
     try {
+      setIsLoading(true);
       const foodsData = await fetchGetFood();
       setListFoods(foodsData.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,15 +69,15 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col items-center p-4 gap-8 m-auto">
-                <Heart size={108} fill="white" />
+                <ThumbsUp size={108} />
                 <p className="text-center text-xl">
-                  Mark your favorite dishes with a heart and easily find them
-                  all in one place. Our system lets you keep track of the meals
-                  you love, so you can enjoy them again and again.
+                  Mark your favorite dishes with a thumbs up and easily find
+                  them all in one place. Our system lets you keep track of the
+                  meals you love, so you can enjoy them again and again.
                 </p>
               </div>
               <div className="flex flex-col items-center p-4 gap-8 m-auto">
-                <Star size={108} fill="white" />
+                <Star size={108} fill="white" className="half-filled" />
                 <p className="text-center text-xl">
                   Rate and review your favorite dishes, and see what others have
                   to say. Our platform lets you share your thoughts and browse
@@ -91,28 +96,32 @@ export default function Home() {
                 your cravings. Bon appétit!
               </p>
             </div>
-            <Carousel className="w-full">
-              <CarouselContent className="-ml-1">
-                {listFoods.map((item, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-1/5"
-                  >
-                    <Link to={`/detailfood/${item.id}`}>
-                      <Card className="flex justify-center items-center">
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="rounded-lg aspect-square w-full"
-                        />
-                      </Card>
-                    </Link>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <Carousel className="w-full">
+                <CarouselContent className="-ml-1">
+                  {listFoods.map((item, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="md:basis-1/2 lg:basis-1/5"
+                    >
+                      <Link to={`/detailfood/${item.id}`}>
+                        <Card className="flex justify-center items-center">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            className="rounded-lg aspect-square w-full"
+                          />
+                        </Card>
+                      </Link>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            )}
           </div>
         </div>
       </VisitorLayout>
