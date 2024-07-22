@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Star, ThumbsUp } from "lucide-react";
 import Loading from "@/components/Loading";
+import { Link } from "react-router-dom";
 
 export default function Favorite() {
   const [favoriteFoods, setFavoriteFoods] = useState([]);
@@ -48,36 +49,39 @@ export default function Favorite() {
           ) : (
             <div className="grid items-center gap-4 py-5 sm:grid-cols-2 lg:grid-cols-4">
               {favoriteFoods.map((food) => (
-                <Card className="hover:shadow-2xl" key={food.id}>
-                  <CardHeader className="flex justify-center items-center">
-                    <img
-                      src={food.imageUrl}
-                      alt={food.name}
-                      className="rounded-xl aspect-square w-full"
-                    />
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-4">
-                    <CardTitle>
-                      {food.name
-                        .toLowerCase()
-                        .split(" ")
-                        .map(
-                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                        )
-                        .join(" ")}
-                    </CardTitle>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <div className="flex gap-3 items-center font-cursive">
-                      <ThumbsUp size={36} fill="red" />
-                      <span className="text-4xl">{food.totalLikes}</span>
-                    </div>
-                    <div className="flex gap-3 items-center font-cursive">
-                      <Star size={40} fill="yellow" />
-                      <span className="text-4xl">{food.rating}</span>
-                    </div>
-                  </CardFooter>
-                </Card>
+                <Link key={food.id} to={`/detailfood/${food.id}`}>
+                  <Card className="hover:shadow-2xl" key={food.id}>
+                    <CardHeader className="flex justify-center items-center">
+                      <img
+                        src={food.imageUrl}
+                        alt={food.name}
+                        className="rounded-xl aspect-square w-full"
+                      />
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-4">
+                      <CardTitle>
+                        {food.name
+                          .toLowerCase()
+                          .split(" ")
+                          .map(
+                            (word) =>
+                              word.charAt(0).toUpperCase() + word.slice(1)
+                          )
+                          .join(" ")}
+                      </CardTitle>
+                    </CardContent>
+                    <CardFooter className="flex justify-between items-center">
+                      <div className="flex gap-3 items-center font-cursive">
+                        <ThumbsUp size={36} fill="red" />
+                        <span className="text-4xl">{food.totalLikes}</span>
+                      </div>
+                      <div className="flex gap-3 items-center font-cursive">
+                        <Star size={40} fill="yellow" />
+                        <span className="text-4xl">{food.rating}</span>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Link>
               ))}
             </div>
           )}
