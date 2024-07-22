@@ -1,7 +1,7 @@
+import VisitorLayout from "../../components/layout/visitor/Layout";
 import { useEffect, useState } from "react";
 import { Star, ThumbsUp, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import VisitorLayout from "../../components/layout/visitor/Layout";
 import {
   Carousel,
   CarouselContent,
