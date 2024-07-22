@@ -128,7 +128,7 @@ export default function DetailFood() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex justify-between items-center mt-3">
+                <div className="flex justify-between items-center mt-10">
                   <ThumbsUp
                     fill={liked ? "red" : "none"}
                     size={52}

@@ -22,6 +22,7 @@ import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import EditUserRole from "../../components/modal/EditUserRole";
 import { fetchGetUser } from "@/api/User/fetchGetUser";
+import Loading from "@/components/Loading";
 
 export default function ManageUsers() {
   const [listUsers, setListUsers] = useState([]);
@@ -31,7 +32,7 @@ export default function ManageUsers() {
   });
   const [searchUser, setSearchUser] = useState("");
   const [isModalEditRoleOpen, setIsModalEditRoleOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -47,6 +48,8 @@ export default function ManageUsers() {
       setFilteredUsers(usersData.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -153,56 +156,63 @@ export default function ManageUsers() {
             onChange={handleSearch}
           />
         </div>
-        <Table>
-          <TableHeader className="bg-gray-100">
-            <TableRow>
-              <TableHead className="rounded-tl-md text-black">No.</TableHead>
-              <TableHead className="text-black">Profile Picture</TableHead>
-              <TableHead className="text-black">Name</TableHead>
-              <TableHead className="text-black">Role</TableHead>
-              <TableHead className="text-center rounded-tr-md text-black">
-                Action
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {currentUsers.map((data, index) => (
-              <TableRow key={data.id}>
-                <TableCell>{indexOfFirstUser + index + 1}</TableCell>
-                <TableCell>
-                  <img
-                    src={data.profilePictureUrl}
-                    alt={data.name}
-                    className="w-28 rounded-full aspect-square"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "/images/dummy.png";
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  {data.name
-                    .toLowerCase()
-                    .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
-                </TableCell>
-                <TableCell>
-                  {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
-                </TableCell>
-                <TableCell className="">
-                  <Link to="">
-                    <Pencil
-                      size={24}
-                      className="mx-auto"
-                      onClick={() => handleModalEditRole(data)}
-                    />
-                  </Link>
-                </TableCell>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Table>
+            <TableHeader className="bg-gray-100">
+              <TableRow>
+                <TableHead className="rounded-tl-md text-black">No.</TableHead>
+                <TableHead className="text-black">Profile Picture</TableHead>
+                <TableHead className="text-black">Name</TableHead>
+                <TableHead className="text-black">Role</TableHead>
+                <TableHead className="text-center rounded-tr-md text-black">
+                  Action
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {currentUsers.map((data, index) => (
+                <TableRow key={data.id}>
+                  <TableCell>{indexOfFirstUser + index + 1}</TableCell>
+                  <TableCell>
+                    <img
+                      src={data.profilePictureUrl}
+                      alt={data.name}
+                      className="w-28 rounded-full aspect-square"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/images/dummy.png";
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    {data.name
+                      .toLowerCase()
+                      .split(" ")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
+                  </TableCell>
+                  <TableCell>
+                    {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
+                  </TableCell>
+                  <TableCell className="">
+                    <Link to="">
+                      <Pencil
+                        size={24}
+                        className="mx-auto"
+                        onClick={() => handleModalEditRole(data)}
+                      />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+
         {/* Pagination */}
         <Pagination className="flex justify-end mt-4">
           <PaginationContent>

@@ -67,14 +67,14 @@ export default function Favorite() {
                         .join(" ")}
                     </CardTitle>
                   </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <div className="flex gap-2 items-center">
-                      <ThumbsUp size={36} color="red" />
-                      <span className="text-lg">{food.totalLikes}</span>
+                  <CardFooter className="flex justify-between items-center">
+                    <div className="flex gap-3 items-center font-cursive">
+                      <ThumbsUp size={36} fill="red" />
+                      <span className="text-4xl">{food.totalLikes}</span>
                     </div>
-                    <div className="flex gap-2 items-center">
-                      <Star size={36} color="yellow" />
-                      <span className="text-lg">{food.rating}</span>
+                    <div className="flex gap-3 items-center font-cursive">
+                      <Star size={40} fill="yellow" />
+                      <span className="text-4xl">{food.rating}</span>
                     </div>
                   </CardFooter>
                 </Card>

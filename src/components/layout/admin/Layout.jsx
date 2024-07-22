@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { MenuIcon } from "lucide-react";
+import { ArrowLeftToLine, MenuIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Sidebar, SidebarResponsive, Title } from "./Sidebar";
@@ -59,14 +59,14 @@ export default function AdminLayout({ children }) {
             <div className="flex-1">
               <Sidebar />
             </div>
-            <div className="flex justify-center items-center pb-8">
-              <Button
-                variant="primary"
-                className="w-3/4"
-                onClick={handleLogout}
+            <div className="flex justify-center items-center py-4 border-t-4">
+              <Link
+                to="/"
+                className="flex items-center text-xl font-bold rounded-lg gap-3 px-3 py-4 text-muted-foreground transition-all hover:text-primary hover:bg-[#77e4c936]"
               >
-                Logout
-              </Button>
+                <ArrowLeftToLine className="h-7 w-7" />
+                Back To Website
+              </Link>
             </div>
           </div>
         </div>

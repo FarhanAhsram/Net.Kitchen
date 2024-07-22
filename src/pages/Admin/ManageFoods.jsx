@@ -25,6 +25,7 @@ import AddFood from "../../components/modal/AddFood";
 import EditFood from "../../components/modal/EditFood";
 import { fetchGetFood } from "@/api/Food/fetchGetFood";
 import { fetchDelFood } from "@/api/Food/fetchDelFood";
+import Loading from "@/components/Loading";
 
 export default function ManageFoods() {
   const [listFoods, setListFoods] = useState([]);
@@ -38,7 +39,7 @@ export default function ManageFoods() {
   const [searchFood, setSearchFood] = useState("");
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -94,6 +95,8 @@ export default function ManageFoods() {
       // console.log(foodsData.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -203,63 +206,69 @@ export default function ManageFoods() {
             Add Food
           </Button>
         </div>
-        <Table>
-          <TableHeader className="bg-gray-100">
-            <TableRow>
-              <TableHead className="rounded-tl-md text-black">No.</TableHead>
-              <TableHead className="text-black">Food Image</TableHead>
-              <TableHead className="text-black">Name</TableHead>
-              <TableHead className="text-black">Description</TableHead>
-              <TableHead
-                colSpan={3}
-                className="text-center rounded-tr-md text-black"
-              >
-                Action
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {currentFoods.map((data, index) => (
-              <TableRow key={data.id}>
-                <TableCell>{indexOfFirstFood + index + 1}</TableCell>
-                <TableCell>
-                  <img
-                    src={data.imageUrl}
-                    alt={data.name}
-                    className="w-28 rounded-full aspect-square"
-                  />
-                </TableCell>
-                <TableCell>
-                  {data.name
-                    .toLowerCase()
-                    .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
-                </TableCell>
-                <TableCell>
-                  {data.description.charAt(0).toUpperCase() +
-                    data.description.slice(1)}
-                </TableCell>
-                <TableCell className="">
-                  <Pencil
-                    size={24}
-                    className="mx-auto"
-                    cursor={"pointer"}
-                    onClick={() => handleModalEdit(data)}
-                  />
-                </TableCell>
-                <TableCell className="">
-                  <Trash2
-                    size={24}
-                    className="mx-auto"
-                    cursor={"pointer"}
-                    onClick={() => handleDeleteFood(data.id)}
-                  />
-                </TableCell>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Table>
+            <TableHeader className="bg-gray-100">
+              <TableRow>
+                <TableHead className="rounded-tl-md text-black">No.</TableHead>
+                <TableHead className="text-black">Food Image</TableHead>
+                <TableHead className="text-black">Name</TableHead>
+                <TableHead className="text-black">Description</TableHead>
+                <TableHead
+                  colSpan={3}
+                  className="text-center rounded-tr-md text-black"
+                >
+                  Action
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {currentFoods.map((data, index) => (
+                <TableRow key={data.id}>
+                  <TableCell>{indexOfFirstFood + index + 1}</TableCell>
+                  <TableCell>
+                    <img
+                      src={data.imageUrl}
+                      alt={data.name}
+                      className="w-28 rounded-full aspect-square"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    {data.name
+                      .toLowerCase()
+                      .split(" ")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
+                  </TableCell>
+                  <TableCell>
+                    {data.description.charAt(0).toUpperCase() +
+                      data.description.slice(1)}
+                  </TableCell>
+                  <TableCell className="">
+                    <Pencil
+                      size={24}
+                      className="mx-auto"
+                      cursor={"pointer"}
+                      onClick={() => handleModalEdit(data)}
+                    />
+                  </TableCell>
+                  <TableCell className="">
+                    <Trash2
+                      size={24}
+                      className="mx-auto"
+                      cursor={"pointer"}
+                      onClick={() => handleDeleteFood(data.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
 
         {/* Pagination */}
         <Pagination className="flex justify-end mt-4">

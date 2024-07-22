@@ -133,21 +133,21 @@ export default function Header() {
               >
                 {role === "admin" && (
                   <MenuItem>
-                    <a
-                      href="/manageusers"
+                    <Link
+                      href="/dashboard"
                       className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
                     >
                       Go To Dashboard
-                    </a>
+                    </Link>
                   </MenuItem>
                 )}
                 <MenuItem>
-                  <a
+                  <Link
                     href="/userprofile"
                     className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
                   >
                     Update Profile
-                  </a>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link

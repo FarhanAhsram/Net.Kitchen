@@ -50,7 +50,9 @@ export default function Home() {
                 and find your new favorite dish today!
               </p>
               <div className="mx-auto md:mx-0">
-                <Button className="text-xl p-8">Get Started</Button>
+                <Link to="/listfoods">
+                  <Button className="text-xl p-8">Get Started</Button>
+                </Link>
               </div>
             </div>
             <div className="hidden lg:block col-span-5 m-auto">

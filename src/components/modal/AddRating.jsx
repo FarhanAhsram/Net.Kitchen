@@ -120,10 +120,10 @@ export default function AddRating({ handleModalAddRating, id, renderStars }) {
             </div>
             <div className="flex justify-end gap-6">
               <Button variant="ghost" onClick={handleModalAddRating}>
-                Batal
+                Cancel
               </Button>
               <Button type="submit" variant="primary">
-                Simpan
+                Submit
               </Button>
             </div>
           </form>
